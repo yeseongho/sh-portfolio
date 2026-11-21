@@ -157,7 +157,7 @@ const PROJECTS_DATA = [
   {
     id: "zaemit-website",
     number: "PROJECT 02",
-    title: "K리1그 순위 및 승부예측 사이트",
+    title: "K리그1 순위 및 승부예측 사이트",
     category: ["AI / ML", "Web"],
     shortDesc:
       "Zaemit의 ChatGPT와 MCP를 연동하여 K리그 축구 리그 순위 및 경기 결과 예측 기능을 제공하는 인터랙티브 웹사이트.",
