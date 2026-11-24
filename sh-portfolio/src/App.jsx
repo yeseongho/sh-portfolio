@@ -602,7 +602,8 @@ const getTimeMode = () => {
   return "coding";
 };
 
-// 메인 히어로 캐릭터 (치비 일러스트 스타일 + 클릭 인사 말풍선 + 12~13/17~18시 식사 모션 + 23:00~08:00 수면 모션)
+
+// 메인 히어로 캐릭터 (참조 이미지 느낌을 살린 코지 픽셀풍 SVG 캐릭터 + 클릭 인사 + 식사/수면 모드)
 const HeroPixelCharacter = ({ onCharacterClick }) => {
   const [clickCount, setClickCount] = useState(0);
   const [showGreeting, setShowGreeting] = useState(false);
@@ -625,11 +626,11 @@ const HeroPixelCharacter = ({ onCharacterClick }) => {
   }, []);
 
   const currentMode = manualOverride !== null ? manualOverride : timeMode;
-  const isSleeping = currentMode === "sleeping";
-  const isEating = currentMode === "eating";
+  const isSleeping = currentMode === 'sleeping';
+  const isEating = currentMode === 'eating';
 
   const handleCycleMode = () => {
-    const order = ["coding", "eating", "sleeping"];
+    const order = ['coding', 'eating', 'sleeping'];
     const nextIdx = (order.indexOf(currentMode) + 1) % order.length;
     setManualOverride(order[nextIdx]);
   };
@@ -653,7 +654,6 @@ const HeroPixelCharacter = ({ onCharacterClick }) => {
 
   return (
     <div className="relative flex flex-col items-center justify-center select-none group">
-      {/* 클릭 시 나타나는 인사 말풍선 */}
       {showGreeting && (
         <div
           key={clickCount}
@@ -666,8 +666,7 @@ const HeroPixelCharacter = ({ onCharacterClick }) => {
         </div>
       )}
 
-      {/* 배경 발광 */}
-      <div className="absolute w-72 h-72 rounded-full bg-[#4D7CFE]/15 blur-3xl pointer-events-none" />
+      <div className="absolute w-80 h-80 rounded-full bg-[#4D7CFE]/18 blur-3xl pointer-events-none" />
 
       <button
         type="button"
@@ -676,170 +675,92 @@ const HeroPixelCharacter = ({ onCharacterClick }) => {
         className="relative cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#81D4FF] rounded-3xl p-1 transition-transform duration-300 hover:scale-[1.03] active:scale-[0.98]"
       >
         <svg
-          viewBox="0 0 260 225"
-          className="w-[260px] h-[225px] sm:w-[300px] sm:h-[260px] drop-shadow-[0_14px_28px_rgba(5,10,28,0.85)]"
+          viewBox="0 0 320 270"
+          className="w-[280px] h-[238px] sm:w-[330px] sm:h-[282px] drop-shadow-[0_16px_32px_rgba(5,10,28,0.88)]"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            <linearGradient id="hairGrad" x1="80" y1="30" x2="170" y2="125" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#1E294B" />
-              <stop offset="60%" stopColor="#11182F" />
-              <stop offset="100%" stopColor="#090D1C" />
+            <linearGradient id="hairFill" x1="116" y1="56" x2="189" y2="131" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#293A7C" />
+              <stop offset="52%" stopColor="#182554" />
+              <stop offset="100%" stopColor="#101A3A" />
             </linearGradient>
-            <linearGradient id="skinGrad" x1="95" y1="80" x2="155" y2="140" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#FFE9D6" />
-              <stop offset="100%" stopColor="#F5C9AC" />
+            <linearGradient id="skinFill" x1="118" y1="94" x2="173" y2="150" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#FFEADF" />
+              <stop offset="100%" stopColor="#F5C8B0" />
             </linearGradient>
-            <linearGradient id="hoodieBlue" x1="115" y1="125" x2="185" y2="180" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#4D8BFF" />
-              <stop offset="100%" stopColor="#1D4ED8" />
+            <linearGradient id="hoodieMain" x1="107" y1="143" x2="182" y2="202" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#72A9FF" />
+              <stop offset="55%" stopColor="#4D7CFE" />
+              <stop offset="100%" stopColor="#2D5CE8" />
             </linearGradient>
-            <linearGradient id="laptopLid" x1="35" y1="138" x2="112" y2="186" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#3B4D7A" />
-              <stop offset="50%" stopColor="#1E294B" />
-              <stop offset="100%" stopColor="#11182E" />
+            <linearGradient id="hoodieShade" x1="127" y1="150" x2="178" y2="198" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#F8FBFF" />
+              <stop offset="100%" stopColor="#DCEBFF" />
             </linearGradient>
-            <linearGradient id="headsetCup" x1="145" y1="80" x2="178" y2="118" gradientUnits="userSpaceOnUse">
+            <linearGradient id="screenGlow" x1="35" y1="145" x2="104" y2="198" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="#3A4F88" />
+              <stop offset="100%" stopColor="#131C35" />
+            </linearGradient>
+            <linearGradient id="headphoneShell" x1="180" y1="87" x2="226" y2="126" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="#FFFFFF" />
               <stop offset="100%" stopColor="#CBD5E1" />
             </linearGradient>
-            <linearGradient id="riceBowlGrad" x1="78" y1="142" x2="118" y2="164" gradientUnits="userSpaceOnUse">
+            <linearGradient id="catWhite" x1="235" y1="188" x2="292" y2="226" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="#FFFFFF" />
-              <stop offset="70%" stopColor="#E2E8F0" />
-              <stop offset="100%" stopColor="#94A3B8" />
+              <stop offset="100%" stopColor="#E5ECF8" />
             </linearGradient>
-            <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.9" />
+            <radialGradient id="starAura" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#8FD8FF" stopOpacity="0.9" />
               <stop offset="100%" stopColor="#4D7CFE" stopOpacity="0" />
             </radialGradient>
           </defs>
 
-          {/* 주변 십자 별 반짝임 */}
           <g className="animate-pulse">
-            <circle cx="64" cy="34" r="10" fill="url(#starGlow)" />
-            <path d="M64 25V43M55 34H73" stroke="#93C5FD" strokeWidth="2.4" strokeLinecap="round" />
-            <path d="M138 18V28M133 23H143" stroke="#BFDBFE" strokeWidth="2" strokeLinecap="round" />
-            <path d="M26 112V124M20 118H32" stroke="#93C5FD" strokeWidth="2" strokeLinecap="round" />
-            <circle cx="222" cy="144" r="11" fill="url(#starGlow)" />
-            <path d="M222 134V154M212 144H232" stroke="#60A5FA" strokeWidth="2.4" strokeLinecap="round" />
+            <circle cx="72" cy="34" r="11" fill="url(#starAura)" />
+            <path d="M72 24V44M62 34H82" stroke="#9AD8FF" strokeWidth="2.4" strokeLinecap="round" />
+            <path d="M150 18V28M145 23H155" stroke="#BFDBFE" strokeWidth="2" strokeLinecap="round" />
+            <path d="M260 50V62M254 56H266" stroke="#93C5FD" strokeWidth="2" strokeLinecap="round" />
+            <circle cx="256" cy="146" r="12" fill="url(#starAura)" />
+            <path d="M256 136V156M246 146H266" stroke="#60A5FA" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M39 116V126M34 121H44" stroke="#93C5FD" strokeWidth="2" strokeLinecap="round" />
           </g>
 
-          {/* 좌측 작은 풀잎 */}
-          <g transform="translate(8, 196)">
-            <path d="M4 12C4 7 7 5 9 12" fill="#22C55E" />
-            <path d="M10 12C10 4 14 2 16 12" fill="#4ADE80" />
-            <path d="M16 12C17 7 20 6 21 12" fill="#16A34A" />
+          <g transform="translate(10, 208)">
+            <path d="M4 14C4 9 8 6 11 14" fill="#22C55E" />
+            <path d="M11 14C11 4 16 2 19 14" fill="#4ADE80" />
+            <path d="M18 14C19 9 23 7 25 14" fill="#16A34A" />
           </g>
 
-          {/* 상태 말풍선: 수면('자는 중..') / 식사('밥먹는 중 !') / 개발(하트 말풍선) */}
           {isSleeping ? (
             <g className="animate-hero-float">
-              <rect
-                x="156"
-                y="24"
-                width="84"
-                height="34"
-                rx="12"
-                fill="#131C35"
-                stroke="#81D4FF"
-                strokeWidth="2.2"
-              />
-              <path
-                d="M174 58L168 67L184 58"
-                fill="#131C35"
-                stroke="#81D4FF"
-                strokeWidth="2.2"
-                strokeLinejoin="round"
-              />
-              <path d="M172 57.5H185" stroke="#131C35" strokeWidth="2.8" />
-              <text
-                x="198"
-                y="45"
-                textAnchor="middle"
-                fill="#E0F2FE"
-                fontSize="12"
-                fontWeight="700"
-                fontFamily="Pretendard, sans-serif"
-              >
+              <rect x="200" y="20" width="76" height="36" rx="14" fill="#131C35" stroke="#81D4FF" strokeWidth="2.2" />
+              <path d="M220 56L214 66L228 56" fill="#131C35" stroke="#81D4FF" strokeWidth="2.2" strokeLinejoin="round" />
+              <path d="M219 55.5H229" stroke="#131C35" strokeWidth="3" />
+              <text x="238" y="42" textAnchor="middle" fill="#E0F2FE" fontSize="12" fontWeight="700" fontFamily="Pretendard, sans-serif">
                 자는 중..
               </text>
-              <text
-                x="138"
-                y="54"
-                fill="#81D4FF"
-                fontSize="13"
-                fontWeight="800"
-                fontFamily="Space Grotesk, sans-serif"
-              >
-                Z
-              </text>
-              <text
-                x="148"
-                y="42"
-                fill="#A78BFA"
-                fontSize="10"
-                fontWeight="800"
-                fontFamily="Space Grotesk, sans-serif"
-              >
-                z
-              </text>
+              <text x="185" y="52" fill="#9BD8FF" fontSize="16" fontWeight="800" fontFamily="Space Grotesk, sans-serif">Z</text>
+              <text x="196" y="38" fill="#A78BFA" fontSize="11" fontWeight="800" fontFamily="Space Grotesk, sans-serif">z</text>
             </g>
           ) : isEating ? (
             <g className="animate-hero-float">
-              <rect
-                x="152"
-                y="24"
-                width="92"
-                height="34"
-                rx="12"
-                fill="#131C35"
-                stroke="#FBBF24"
-                strokeWidth="2.2"
-              />
-              <path
-                d="M174 58L168 67L184 58"
-                fill="#131C35"
-                stroke="#FBBF24"
-                strokeWidth="2.2"
-                strokeLinejoin="round"
-              />
-              <path d="M172 57.5H185" stroke="#131C35" strokeWidth="2.8" />
-              <text
-                x="198"
-                y="45"
-                textAnchor="middle"
-                fill="#FEF3C7"
-                fontSize="12"
-                fontWeight="700"
-                fontFamily="Pretendard, sans-serif"
-              >
+              <rect x="194" y="20" width="88" height="36" rx="14" fill="#131C35" stroke="#FBBF24" strokeWidth="2.2" />
+              <path d="M218 56L212 66L228 56" fill="#131C35" stroke="#FBBF24" strokeWidth="2.2" strokeLinejoin="round" />
+              <path d="M217 55.5H229" stroke="#131C35" strokeWidth="3" />
+              <text x="238" y="42" textAnchor="middle" fill="#FEF3C7" fontSize="12" fontWeight="700" fontFamily="Pretendard, sans-serif">
                 밥먹는 중 !
               </text>
             </g>
           ) : (
             <g className="animate-hero-float">
-              <rect
-                x="174"
-                y="34"
-                width="48"
-                height="42"
-                rx="12"
-                fill="#FFFFFF"
-                stroke="#0F172A"
-                strokeWidth="2.5"
-              />
+              <rect x="222" y="26" width="50" height="42" rx="12" fill="#FFFFFF" stroke="#0F172A" strokeWidth="2.4" />
+              <path d="M236 68L232 79L244 68" fill="#FFFFFF" stroke="#0F172A" strokeWidth="2.4" strokeLinejoin="round" />
+              <path d="M233.5 67.5H246" stroke="#FFFFFF" strokeWidth="3" />
               <path
-                d="M188 76L185 86L197 76"
-                fill="#FFFFFF"
-                stroke="#0F172A"
-                strokeWidth="2.5"
-                strokeLinejoin="round"
-              />
-              <path d="M186.5 75.5H198" stroke="#FFFFFF" strokeWidth="3" />
-              <path
-                d="M198 64.5C198 64.5 186 56.5 186 49.5C186 45.8 188.9 43 192.5 43C195 43 197 44.4 198 46.5C199 44.4 201 43 203.5 43C207.1 43 210 45.8 210 49.5C210 56.5 198 64.5 198 64.5Z"
-                fill="#F43F5E"
+                d="M247 57C247 57 236 50 236 44C236 40.8 238.5 38.3 241.8 38.3C244 38.3 245.8 39.5 247 41.3C248.2 39.5 250 38.3 252.2 38.3C255.5 38.3 258 40.8 258 44C258 50 247 57 247 57Z"
+                fill="#F35C8B"
                 stroke="#0F172A"
                 strokeWidth="1.8"
                 strokeLinejoin="round"
@@ -847,545 +768,142 @@ const HeroPixelCharacter = ({ onCharacterClick }) => {
             </g>
           )}
 
-          {/* 바닥 그림자 */}
-          <ellipse cx="132" cy="208" rx="108" ry="6" fill="#050917" opacity="0.85" />
+          <ellipse cx="160" cy="236" rx="123" ry="8" fill="#050917" opacity="0.82" />
 
-          {/* 캐릭터 본체 */}
-          <g className={isSleeping ? "" : "animate-hero-breathe"}>
-            {/* 파란 백팩 */}
-            <path
-              d="M156 132C171 132 181 143 181 160C181 174 173 184 160 184H150V132H156Z"
-              fill="url(#hoodieBlue)"
-              stroke="#0F172A"
-              strokeWidth="2.5"
-            />
-            <path
-              d="M167 142C172 146 174 154 173 166"
-              stroke="#93C5FD"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
+          <g className={isSleeping ? '' : 'animate-hero-breathe'}>
+            <g transform={isEating ? 'translate(233,184)' : 'translate(230,186)'} className={isSleeping ? '' : 'animate-hero-float'}>
+              <path d="M3 24C3 11 13 2 30 2C45 2 55 9 57 21C59 31 51 40 37 41H20C9 41 3 34 3 24Z" fill="url(#catWhite)" stroke="#13203C" strokeWidth="2.3" />
+              <path d="M10 12L16 3L21 13" fill="#F8FAFC" stroke="#13203C" strokeWidth="2.2" strokeLinejoin="round" />
+              <path d="M27 11L34 2L38 13" fill="#F8FAFC" stroke="#13203C" strokeWidth="2.2" strokeLinejoin="round" />
+              <path d="M9 20C15 16 23 15 31 16C42 17 49 21 54 28" stroke="#C8D4E9" strokeWidth="2" strokeLinecap="round" />
+              {isSleeping ? (
+                <>
+                  <path d="M17 22C19 24 22 24 24 22" stroke="#13203C" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M28 22C30 24 33 24 35 22" stroke="#13203C" strokeWidth="2" strokeLinecap="round" />
+                </>
+              ) : (
+                <>
+                  <circle cx="21" cy="22" r="2.1" fill="#13203C" />
+                  <circle cx="33" cy="22" r="2.1" fill="#13203C" />
+                </>
+              )}
+              <path d="M23 29C25.5 31.5 29.5 31.5 32 29" stroke="#13203C" strokeWidth="2" strokeLinecap="round" />
+              <path d="M45 13C55 14 62 21 61 34" stroke="#13203C" strokeWidth="2.4" strokeLinecap="round" />
+              <path d="M48 17C56 20 59 25 58 33" stroke="#F9A8D4" strokeWidth="1.7" strokeLinecap="round" />
+            </g>
 
-            {/* 앉은 다리 & 신발 */}
-            <path
-              d="M72 184C60 184 52 191 52 199C52 204 58 207 68 207H154C164 207 170 203 170 197C170 189 160 184 146 184H72Z"
-              fill="#1E294B"
-              stroke="#0F172A"
-              strokeWidth="2.5"
-            />
-            <ellipse
-              cx="116"
-              cy="197"
-              rx="18"
-              ry="10"
-              fill="#27355E"
-              stroke="#0F172A"
-              strokeWidth="2.2"
-            />
+            <path d="M103 195C89 195 79 203 79 213C79 219 86 223 97 223H188C201 223 210 218 210 211C210 202 199 195 184 195H103Z" fill="#202C57" stroke="#0F172A" strokeWidth="2.5" />
+            <ellipse cx="154" cy="211" rx="21" ry="11" fill="#2A3766" stroke="#0F172A" strokeWidth="2.2" />
 
-            {/* 상체 화이트 & 블루 후드 */}
-            <path
-              d="M94 134C94 126 105 122 126 122C147 122 158 128 158 140V182C158 186 153 188 145 188H102C95 188 92 184 92 178L94 134Z"
-              fill="#F8FAFC"
-              stroke="#0F172A"
-              strokeWidth="2.5"
-            />
-            <path
-              d="M100 130C106 138 118 141 132 140C146 139 156 134 159 127C162 121 153 117 140 118H108C100 118 96 124 100 130Z"
-              fill="url(#hoodieBlue)"
-              stroke="#0F172A"
-              strokeWidth="2.3"
-            />
-            <path
-              d="M117 139V174M128 140V174"
-              stroke="#60A5FA"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-            />
+            <path d="M175 142C191 144 203 157 203 175C203 191 195 201 180 201H169V142H175Z" fill="url(#hoodieMain)" stroke="#0F172A" strokeWidth="2.5" />
+            <path d="M186 151C192 155 195 162 194 175" stroke="#BEE1FF" strokeWidth="2" strokeLinecap="round" />
 
-            {isSleeping ? (
-              /* 수면 모션: 팔을 모으고 고개를 숙여 잠든 자세 */
-              <g>
-                <path
-                  d="M96 156C106 150 134 150 144 158C149 162 146 171 136 171H102C93 171 91 161 96 156Z"
-                  fill="#F1F5F9"
-                  stroke="#0F172A"
-                  strokeWidth="2.4"
-                />
-                <g transform="translate(-4, 14) rotate(-8 125 100)">
-                  <path
-                    d="M84 94C84 74 102 62 126 62C148 62 162 75 162 96C162 118 148 130 123 130C98 130 84 117 84 94Z"
-                    fill="url(#skinGrad)"
-                    stroke="#0F172A"
-                    strokeWidth="2.5"
-                  />
-                  <path
-                    d="M94 104C97 108 103 108 106 104"
-                    stroke="#0F172A"
-                    strokeWidth="2.6"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M122 104C125 108 131 108 134 104"
-                    stroke="#0F172A"
-                    strokeWidth="2.6"
-                    strokeLinecap="round"
-                  />
-                  <ellipse cx="95" cy="112" rx="5.5" ry="3" fill="#FDA4AF" opacity="0.65" />
-                  <ellipse cx="132" cy="112" rx="5.5" ry="3" fill="#FDA4AF" opacity="0.65" />
-                  <circle cx="113" cy="115" r="2.2" fill="#B45309" />
+            <path d="M118 143C118 134 129 129 151 129C174 129 186 136 186 150V194C186 200 180 203 171 203H127C118 203 114 198 114 191L118 143Z" fill="url(#hoodieShade)" stroke="#0F172A" strokeWidth="2.5" />
+            <path d="M124 138C131 147 145 151 161 149C176 148 186 142 189 134C192 127 182 124 167 124H133C124 124 120 132 124 138Z" fill="url(#hoodieMain)" stroke="#0F172A" strokeWidth="2.3" />
+            <path d="M144 149V187M157 149V187" stroke="#87B9FF" strokeWidth="2.2" strokeLinecap="round" />
 
-                  <path
-                    d="M78 96C75 76 84 56 104 47C98 46 92 47 86 50C93 41 107 37 123 38C146 39 167 53 173 74C178 89 175 105 166 114C164 103 160 95 154 91C150 96 144 98 137 96C132 89 125 85 117 86C112 93 105 96 97 95C91 90 85 91 78 96Z"
-                    fill="url(#hairGrad)"
-                    stroke="#0F172A"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M106 39C128 36 154 50 160 79"
-                    stroke="#F8FAFC"
-                    strokeWidth="6.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M106 39C128 36 154 50 160 79"
-                    stroke="#0F172A"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <ellipse
-                    cx="159"
-                    cy="95"
-                    rx="13"
-                    ry="16"
-                    fill="url(#headsetCup)"
-                    stroke="#0F172A"
-                    strokeWidth="2.4"
-                  />
-                </g>
-              </g>
-            ) : isEating ? (
-              /* 식사 모션 (12:00~13:00, 17:00~18:00): 행복한 웃음 + 밥그릇 & 젓가락질 */
-              <g>
-                {/* 얼굴 */}
-                <path
-                  d="M84 94C84 74 102 62 126 62C148 62 162 75 162 96C162 118 148 130 123 130C98 130 84 117 84 94Z"
-                  fill="url(#skinGrad)"
-                  stroke="#0F172A"
-                  strokeWidth="2.5"
-                />
-
-                {/* 기분 좋게 휘어진 반달 웃음 눈 */}
-                <path
-                  d="M93 103C96 98 102 98 105 103"
-                  stroke="#0F172A"
-                  strokeWidth="2.6"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M121 103C124 98 130 98 133 103"
-                  stroke="#0F172A"
-                  strokeWidth="2.6"
-                  strokeLinecap="round"
-                />
-
-                {/* 발그레한 볼터치 & 맛있게 먹는 입 */}
-                <ellipse cx="94" cy="111" rx="5.5" ry="3" fill="#FDA4AF" opacity="0.72" />
-                <ellipse cx="132" cy="111" rx="5.5" ry="3" fill="#FDA4AF" opacity="0.72" />
-                <ellipse
-                  cx="113"
-                  cy="115"
-                  rx="4.2"
-                  ry="3.2"
-                  fill="#F43F5E"
-                  stroke="#0F172A"
-                  strokeWidth="1.6"
-                />
-
-                {/* 헤어스타일 */}
-                <path
-                  d="M78 96C75 76 84 56 104 47C98 46 92 47 86 50C93 41 107 37 123 38C146 39 167 53 173 74C178 89 175 105 166 114C164 103 160 95 154 91C150 96 144 98 137 96C132 89 125 85 117 86C112 93 105 96 97 95C91 90 85 91 78 96Z"
-                  fill="url(#hairGrad)"
-                  stroke="#0F172A"
-                  strokeWidth="2.5"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M84 68C87 60 94 54 102 52"
-                  stroke="#FFFFFF"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  opacity="0.7"
-                />
-
-                {/* 흰색 오버이어 헤드셋 */}
-                <path
-                  d="M106 39C128 36 154 50 160 79"
-                  stroke="#F8FAFC"
-                  strokeWidth="6.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M106 39C128 36 154 50 160 79"
-                  stroke="#0F172A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <ellipse
-                  cx="159"
-                  cy="95"
-                  rx="13"
-                  ry="16"
-                  fill="url(#headsetCup)"
-                  stroke="#0F172A"
-                  strokeWidth="2.4"
-                />
-                <ellipse
-                  cx="156"
-                  cy="95"
-                  rx="7.5"
-                  ry="10"
-                  fill="#E2E8F0"
-                  stroke="#94A3B8"
-                  strokeWidth="1.5"
-                />
-
-                {/* 왼손으로 받쳐 든 따끈한 밥그릇 */}
-                <g>
-                  {/* 고봉 흰쌀밥 */}
-                  <path
-                    d="M81 144C84 133 112 133 115 144Z"
-                    fill="#FFFFFF"
-                    stroke="#0F172A"
-                    strokeWidth="2.2"
-                  />
-                  {/* 밥그릇 본체 */}
-                  <path
-                    d="M78 144H118C117 156 109 162 98 162C87 162 79 156 78 144Z"
-                    fill="url(#riceBowlGrad)"
-                    stroke="#0F172A"
-                    strokeWidth="2.3"
-                  />
-                  <path d="M81 149H115" stroke="#3B82F6" strokeWidth="2.2" />
-                  {/* 모락모락 김 애니메이션 */}
-                  <path
-                    d="M90 130C88 125 92 121 90 116"
-                    stroke="#E2E8F0"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    opacity="0.85"
-                  />
-                  <path
-                    d="M105 129C103 124 107 120 105 115"
-                    stroke="#E2E8F0"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    opacity="0.85"
-                  />
-                  {/* 왼손 */}
-                  <ellipse
-                    cx="85"
-                    cy="155"
-                    rx="7"
-                    ry="5.5"
-                    fill="url(#skinGrad)"
-                    stroke="#0F172A"
-                    strokeWidth="2"
-                  />
-                </g>
-
-                {/* 오른팔 & 젓가락질 애니메이션 */}
-                <g className="animate-eat-chopsticks">
-                  <path
-                    d="M140 140C150 143 151 154 139 156L127 155"
-                    fill="#F8FAFC"
-                    stroke="#0F172A"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                  {/* 젓가락 */}
-                  <line
-                    x1="128"
-                    y1="152"
-                    x2="101"
-                    y2="137"
-                    stroke="#D97706"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1="127"
-                    y1="156"
-                    x2="100"
-                    y2="142"
-                    stroke="#B45309"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                  />
-                  {/* 오른손 */}
-                  <circle
-                    cx="127"
-                    cy="154"
-                    r="6"
-                    fill="url(#skinGrad)"
-                    stroke="#0F172A"
-                    strokeWidth="2"
-                  />
-                </g>
-              </g>
-            ) : (
-              /* 평상시 코딩 모션 */
-              <g>
-                {/* 오른팔 및 손 */}
-                <path
-                  d="M140 140C151 142 156 153 152 164C148 172 135 173 118 171"
-                  fill="#F8FAFC"
-                  stroke="#0F172A"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                />
-                <ellipse
-                  cx="113"
-                  cy="170"
-                  rx="8"
-                  ry="6"
-                  fill="url(#skinGrad)"
-                  stroke="#0F172A"
-                  strokeWidth="2"
-                />
-
-                {/* 얼굴 */}
-                <path
-                  d="M84 94C84 74 102 62 126 62C148 62 162 75 162 96C162 118 148 130 123 130C98 130 84 117 84 94Z"
-                  fill="url(#skinGrad)"
-                  stroke="#0F172A"
-                  strokeWidth="2.5"
-                />
-
-                {/* 깜빡이는 큰 눈 */}
-                <g className="animate-hero-blink" style={{ transformOrigin: "114px 102px" }}>
-                  <rect x="94" y="94" width="10" height="15" rx="5" fill="#0F172A" />
-                  <circle cx="97" cy="98" r="2.2" fill="#FFFFFF" />
-                  <rect x="122" y="94" width="10" height="15" rx="5" fill="#0F172A" />
-                  <circle cx="125" cy="98" r="2.2" fill="#FFFFFF" />
-                </g>
-
-                {/* 볼터치 & 미소 */}
-                <ellipse cx="94" cy="112" rx="5" ry="2.8" fill="#FDA4AF" opacity="0.6" />
-                <ellipse cx="132" cy="112" rx="5" ry="2.8" fill="#FDA4AF" opacity="0.6" />
-                <path
-                  d="M110 114C112 116.5 116 116.5 118 114"
-                  stroke="#9A3412"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
-
-                {/* 헤어스타일 */}
-                <path
-                  d="M78 96C75 76 84 56 104 47C98 46 92 47 86 50C93 41 107 37 123 38C146 39 167 53 173 74C178 89 175 105 166 114C164 103 160 95 154 91C150 96 144 98 137 96C132 89 125 85 117 86C112 93 105 96 97 95C91 90 85 91 78 96Z"
-                  fill="url(#hairGrad)"
-                  stroke="#0F172A"
-                  strokeWidth="2.5"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M84 68C87 60 94 54 102 52"
-                  stroke="#FFFFFF"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  opacity="0.7"
-                />
-                <ellipse cx="114" cy="54" rx="5" ry="2.5" fill="#6366F1" opacity="0.55" />
-                <ellipse cx="127" cy="55" rx="4" ry="2" fill="#6366F1" opacity="0.45" />
-
-                {/* 흰색 오버이어 헤드셋 */}
-                <path
-                  d="M106 39C128 36 154 50 160 79"
-                  stroke="#F8FAFC"
-                  strokeWidth="6.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M106 39C128 36 154 50 160 79"
-                  stroke="#0F172A"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <ellipse
-                  cx="159"
-                  cy="95"
-                  rx="13"
-                  ry="16"
-                  fill="url(#headsetCup)"
-                  stroke="#0F172A"
-                  strokeWidth="2.4"
-                />
-                <ellipse
-                  cx="156"
-                  cy="95"
-                  rx="7.5"
-                  ry="10"
-                  fill="#E2E8F0"
-                  stroke="#94A3B8"
-                  strokeWidth="1.5"
-                />
-              </g>
-            )}
-
-            {/* 노트북 (식사 중일 때는 덮어서 옆에 내려둔 상태, 코딩/수면 중일 때는 펼쳐진 상태) */}
             {isEating ? (
-              <g>
-                {/* 덮어서 책상 바닥에 내려둔 슬림 노트북 */}
-                <rect
-                  x="26"
-                  y="181"
-                  width="66"
-                  height="6"
-                  rx="3"
-                  fill="#3B4D7A"
-                  stroke="#0F172A"
-                  strokeWidth="2.2"
-                />
-                <rect
-                  x="24"
-                  y="187"
-                  width="70"
-                  height="5"
-                  rx="2.5"
-                  fill="#94A3B8"
-                  stroke="#0F172A"
-                  strokeWidth="2"
-                />
-                <line
-                  x1="32"
-                  y1="183.5"
-                  x2="86"
-                  y2="183.5"
-                  stroke="#93C5FD"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
+              <>
+                <path d="M105 95C105 74 124 60 151 60C176 60 192 76 192 98C192 121 177 135 149 135C121 135 105 121 105 95Z" fill="url(#skinFill)" stroke="#0F172A" strokeWidth="2.5" />
+                <path d="M117 105C120 100 126 100 130 105" stroke="#0F172A" strokeWidth="2.6" strokeLinecap="round" />
+                <path d="M147 105C150 100 156 100 160 105" stroke="#0F172A" strokeWidth="2.6" strokeLinecap="round" />
+                <ellipse cx="118" cy="114" rx="5.5" ry="3.2" fill="#FDA4AF" opacity="0.72" />
+                <ellipse cx="158" cy="114" rx="5.5" ry="3.2" fill="#FDA4AF" opacity="0.72" />
+                <ellipse cx="139" cy="118" rx="4.2" ry="3.2" fill="#F35C8B" stroke="#0F172A" strokeWidth="1.5" />
+
+                <path d="M99 97C96 76 106 53 129 44C121 43 114 45 108 49C116 39 132 34 151 35C178 36 201 51 208 74C213 91 209 109 199 118C196 106 190 98 183 93C178 99 171 101 162 99C156 91 147 87 138 89C132 96 124 99 114 98C108 92 102 93 99 97Z" fill="url(#hairFill)" stroke="#0F172A" strokeWidth="2.5" strokeLinejoin="round" />
+                <path d="M111 71C116 63 125 57 136 55" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" opacity="0.85" />
+
+                <path d="M130 36C153 33 182 48 189 81" stroke="#F8FAFC" strokeWidth="6.5" strokeLinecap="round" />
+                <path d="M130 36C153 33 182 48 189 81" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+                <ellipse cx="190" cy="98" rx="14" ry="17" fill="url(#headphoneShell)" stroke="#0F172A" strokeWidth="2.4" />
+                <ellipse cx="187" cy="98" rx="8" ry="10.5" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1.5" />
+
+                <g>
+                  <path d="M99 159C102 146 134 146 138 159Z" fill="#FFFFFF" stroke="#0F172A" strokeWidth="2.2" />
+                  <path d="M95 159H142C141 173 132 180 119 180C106 180 97 173 95 159Z" fill="#F3F6FC" stroke="#0F172A" strokeWidth="2.3" />
+                  <path d="M98 165H140" stroke="#4D7CFE" strokeWidth="2.2" />
+                  <path d="M108 146C106 140 110 136 108 130" stroke="#E2E8F0" strokeWidth="1.8" strokeLinecap="round" opacity="0.9" />
+                  <path d="M123 146C121 139 125 135 123 129" stroke="#E2E8F0" strokeWidth="1.8" strokeLinecap="round" opacity="0.9" />
+                  <ellipse cx="103" cy="171" rx="7" ry="5.5" fill="url(#skinFill)" stroke="#0F172A" strokeWidth="2" />
+                </g>
+
+                <g className="animate-eat-chopsticks">
+                  <path d="M169 154C181 157 182 169 168 171L153 170" fill="#F8FAFC" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" />
+                  <line x1="154" y1="168" x2="123" y2="150" stroke="#D97706" strokeWidth="2.2" strokeLinecap="round" />
+                  <line x1="153" y1="172" x2="122" y2="155" stroke="#B45309" strokeWidth="2.2" strokeLinecap="round" />
+                  <circle cx="153" cy="170" r="6" fill="url(#skinFill)" stroke="#0F172A" strokeWidth="2" />
+                </g>
+              </>
+            ) : isSleeping ? (
+              <>
+                <path d="M116 170C128 162 159 162 171 171C177 176 174 186 163 186H124C113 186 110 176 116 170Z" fill="#F0F5FD" stroke="#0F172A" strokeWidth="2.4" />
+                <g transform="translate(-4, 15) rotate(-8 149 102)">
+                  <path d="M105 95C105 74 124 60 151 60C176 60 192 76 192 98C192 121 177 135 149 135C121 135 105 121 105 95Z" fill="url(#skinFill)" stroke="#0F172A" strokeWidth="2.5" />
+                  <path d="M116 107C120 111 127 111 131 107" stroke="#0F172A" strokeWidth="2.6" strokeLinecap="round" />
+                  <path d="M148 107C152 111 159 111 163 107" stroke="#0F172A" strokeWidth="2.6" strokeLinecap="round" />
+                  <ellipse cx="118" cy="116" rx="5.5" ry="3" fill="#FDA4AF" opacity="0.65" />
+                  <ellipse cx="157" cy="116" rx="5.5" ry="3" fill="#FDA4AF" opacity="0.65" />
+                  <circle cx="139" cy="118" r="2.1" fill="#B45309" />
+
+                  <path d="M99 97C96 76 106 53 129 44C121 43 114 45 108 49C116 39 132 34 151 35C178 36 201 51 208 74C213 91 209 109 199 118C196 106 190 98 183 93C178 99 171 101 162 99C156 91 147 87 138 89C132 96 124 99 114 98C108 92 102 93 99 97Z" fill="url(#hairFill)" stroke="#0F172A" strokeWidth="2.5" strokeLinejoin="round" />
+                  <path d="M130 36C153 33 182 48 189 81" stroke="#F8FAFC" strokeWidth="6.5" strokeLinecap="round" />
+                  <path d="M130 36C153 33 182 48 189 81" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+                  <ellipse cx="190" cy="98" rx="14" ry="17" fill="url(#headphoneShell)" stroke="#0F172A" strokeWidth="2.4" />
+                  <ellipse cx="187" cy="98" rx="8" ry="10.5" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1.5" />
+                </g>
+              </>
+            ) : (
+              <>
+                <path d="M169 149C181 151 186 163 182 175C178 184 164 185 145 183" fill="#F8FAFC" stroke="#0F172A" strokeWidth="2.5" strokeLinecap="round" />
+                <ellipse cx="139" cy="182" rx="8" ry="6" fill="url(#skinFill)" stroke="#0F172A" strokeWidth="2" />
+
+                <path d="M105 95C105 74 124 60 151 60C176 60 192 76 192 98C192 121 177 135 149 135C121 135 105 121 105 95Z" fill="url(#skinFill)" stroke="#0F172A" strokeWidth="2.5" />
+                <g className="animate-hero-blink" style={{ transformOrigin: '140px 104px' }}>
+                  <rect x="118" y="96" width="11" height="14" rx="5.5" fill="#0F172A" />
+                  <circle cx="121" cy="100" r="2.1" fill="#FFFFFF" />
+                  <rect x="149" y="96" width="11" height="14" rx="5.5" fill="#0F172A" />
+                  <circle cx="152" cy="100" r="2.1" fill="#FFFFFF" />
+                </g>
+                <ellipse cx="118" cy="115" rx="5" ry="2.8" fill="#FDA4AF" opacity="0.62" />
+                <ellipse cx="158" cy="115" rx="5" ry="2.8" fill="#FDA4AF" opacity="0.62" />
+                <path d="M136 117C138 119.5 143 119.5 145 117" stroke="#9A3412" strokeWidth="2.1" strokeLinecap="round" />
+
+                <path d="M99 97C96 76 106 53 129 44C121 43 114 45 108 49C116 39 132 34 151 35C178 36 201 51 208 74C213 91 209 109 199 118C196 106 190 98 183 93C178 99 171 101 162 99C156 91 147 87 138 89C132 96 124 99 114 98C108 92 102 93 99 97Z" fill="url(#hairFill)" stroke="#0F172A" strokeWidth="2.5" strokeLinejoin="round" />
+                <path d="M111 71C116 63 125 57 136 55" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" opacity="0.82" />
+                <ellipse cx="142" cy="53" rx="5" ry="2.4" fill="#6C7DFF" opacity="0.56" />
+                <ellipse cx="155" cy="54" rx="4" ry="2" fill="#6C7DFF" opacity="0.44" />
+
+                <path d="M130 36C153 33 182 48 189 81" stroke="#F8FAFC" strokeWidth="6.5" strokeLinecap="round" />
+                <path d="M130 36C153 33 182 48 189 81" stroke="#0F172A" strokeWidth="2" strokeLinecap="round" />
+                <ellipse cx="190" cy="98" rx="14" ry="17" fill="url(#headphoneShell)" stroke="#0F172A" strokeWidth="2.4" />
+                <ellipse cx="187" cy="98" rx="8" ry="10.5" fill="#E2E8F0" stroke="#94A3B8" strokeWidth="1.5" />
+              </>
+            )}
+
+            {isEating ? (
+              <g opacity="0.68">
+                <rect x="58" y="201" width="74" height="6" rx="3" fill="#3B4D7A" stroke="#0F172A" strokeWidth="2.1" />
+                <rect x="56" y="207" width="78" height="5" rx="2.5" fill="#93A7C8" stroke="#0F172A" strokeWidth="1.9" />
               </g>
             ) : (
               <g>
-                <rect
-                  x="44"
-                  y="183"
-                  width="82"
-                  height="6"
-                  rx="3"
-                  fill="#94A3B8"
-                  stroke="#0F172A"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M34 140C34 136 37 134 41 134H105C109 134 112 136 113 140L118 183H40L34 140Z"
-                  fill="url(#laptopLid)"
-                  stroke="#0F172A"
-                  strokeWidth="2.5"
-                />
-                <path
-                  d="M39 137H106"
-                  stroke="#E2E8F0"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                {/* 노트북 화면 코드 심볼 </> */}
-                <path
-                  d="M64 153L56 159L64 165M88 153L96 159L88 165M79 151L73 167"
-                  stroke={isSleeping ? "#64748B" : "#E0F2FE"}
-                  strokeWidth="2.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <path d="M39 143H116L139 187H65C51 187 39 176 39 163V143Z" fill="url(#screenGlow)" stroke="#0F172A" strokeWidth="2.7" strokeLinejoin="round" />
+                <path d="M66 160L77 171L93 153" stroke="#DCE9FF" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M99 153L92 160L99 167" stroke="#DCE9FF" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M113 153L120 160L113 167" stroke="#DCE9FF" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M64 188H140C142 193 140 199 136 201H54C47 201 41 196 41 189L64 188Z" fill="#9AAACE" stroke="#0F172A" strokeWidth="2.5" strokeLinejoin="round" />
               </g>
             )}
-          </g>
-
-          {/* 우측 엎드린 흰 고양이 */}
-          <g transform="translate(174, 166)">
-            <ellipse cx="32" cy="39" rx="28" ry="4" fill="#050917" opacity="0.7" />
-            <path
-              d="M52 33C60 33 65 29 64 24C63 20 58 21 56 25"
-              stroke="#F8FAFC"
-              strokeWidth="4.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M52 33C60 33 65 29 64 24C63 20 58 21 56 25"
-              stroke="#0F172A"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-            <path
-              d="M14 22C14 14 24 11 36 12C48 13 55 20 55 29C55 35 49 38 38 38H14C8 38 5 34 6 29C7 24 11 22 14 22Z"
-              fill="#FFFFFF"
-              stroke="#0F172A"
-              strokeWidth="2.2"
-            />
-            <path
-              d="M8 16L6 4L16 10M28 16L32 4L22 10"
-              fill="#FFFFFF"
-              stroke="#0F172A"
-              strokeWidth="2.2"
-              strokeLinejoin="round"
-            />
-            <path d="M9 13L8 7L14 11" fill="#FBCFE8" />
-            <path d="M27 13L29 7L23 11" fill="#FBCFE8" />
-            <ellipse
-              cx="19"
-              cy="20"
-              rx="14"
-              ry="11"
-              fill="#FFFFFF"
-              stroke="#0F172A"
-              strokeWidth="2.2"
-            />
-            <path
-              d="M11 20C12.5 21.5 14.5 21.5 16 20M22 20C23.5 21.5 25.5 21.5 27 20"
-              stroke="#0F172A"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <ellipse cx="10" cy="23" rx="3" ry="1.8" fill="#FDA4AF" opacity="0.7" />
-            <ellipse cx="28" cy="23" rx="3" ry="1.8" fill="#FDA4AF" opacity="0.7" />
-            <path
-              d="M17 23.5L19 25L21 23.5"
-              stroke="#0F172A"
-              strokeWidth="1.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <ellipse
-              cx="10"
-              cy="35"
-              rx="6"
-              ry="3.5"
-              fill="#FFFFFF"
-              stroke="#0F172A"
-              strokeWidth="2"
-            />
-            <ellipse
-              cx="24"
-              cy="35"
-              rx="6"
-              ry="3.5"
-              fill="#FFFFFF"
-              stroke="#0F172A"
-              strokeWidth="2"
-            />
           </g>
         </svg>
       </button>
 
-      {/* 현재 시간대 모드 표시 및 미리보기 토글 */}
-      <div className="mt-1 flex items-center gap-2">
+      <div className="mt-3 flex flex-col items-center gap-2">
         <button
           type="button"
           onClick={handleCycleMode}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#131C35]/90 border border-[#3B5BDB]/40 text-[11px] text-[#94A3B8] hover:text-white hover:border-[#81D4FF]/60 transition-colors"
-          title="12:00~13:00, 17:00~18:00 식사 / 23:00~08:00 수면 자동 전환 · 클릭하여 모션 미리보기 전환"
+          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#10192F]/85 px-3 py-1.5 text-[11px] sm:text-xs text-slate-200 shadow-[0_8px_24px_rgba(0,0,0,0.25)] transition hover:border-[#4D7CFE]/60 hover:bg-[#13203C]"
         >
           {isSleeping ? (
             <>
